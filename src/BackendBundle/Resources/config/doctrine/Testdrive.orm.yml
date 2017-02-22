@@ -1,0 +1,107 @@
+BackendBundle\Entity\Testdrive:
+    type: entity
+    table: testdrive
+    id:
+        id:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombre:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        apepaterno:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: apePaterno
+        apematerno:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: apeMaterno
+        dniextranjeria:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+            column: dniExtranjeria
+        email:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        distrito:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        empresa:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        cargo:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        celular:
+            type: string
+            nullable: false
+            length: 50
+            options:
+                fixed: false
+        modelo:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+        formacontacto:
+            type: string
+            nullable: false
+            length: 255
+            options:
+                fixed: false
+            column: formaContacto
+        comentario:
+            type: text
+            nullable: false
+            length: 65535
+            options:
+                fixed: false
+        newsletter:
+            type: string
+            nullable: false
+            length: 3
+            options:
+                fixed: false
+        politicas:
+            type: string
+            nullable: false
+            length: 3
+            options:
+                fixed: false
+        fecha:
+            type: datetime
+            nullable: false
+            options:
+                default: CURRENT_TIMESTAMP
+    lifecycleCallbacks: {  }
