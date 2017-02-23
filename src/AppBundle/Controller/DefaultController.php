@@ -13,9 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
-    /**
-     * @Route("/", name="homepage")
-     */
+   
     public function indexAction(Request $request)
     {
         // replace this example code with whatever you need
@@ -24,10 +22,6 @@ class DefaultController extends Controller
         ]);
     }
 
-     /**
-     * @Route("/login", name="login")
-     * @Method({"POST"})
-     */
     public function loginAction(Request $request){
 
         $helpers = $this->get("app.helpers");
@@ -61,21 +55,13 @@ class DefaultController extends Controller
 
                 return new JsonResponse($signup);
             }else{
-                return $helpers->json(
-                    array(
-                        "status"    => "error",
-                        "data"      => "Login not valid !"
-                    )
-                );
+
+                return $helpers->respuesta("error", 200, "Login not valid!!");
             }
 
         }else{
-            return $helpers->json(
-                    array(
-                        "status"    => "error",
-                        "data"      => "Send json with post!"
-                    )
-                );
+
+            return $helpers->respuesta("error", 400, "Send json with post!");
         }
 
         die();
@@ -84,26 +70,6 @@ class DefaultController extends Controller
     }
 
 
-    /**
-     * @Route("/pruebas", name="pruebas")
-     * @Method({"GET","POST"})
-     */
-    public function pruebasAction(Request $request)
-    {
-        $helpers = $this->get('app.helpers');
-
-        $hash = $request->get("authorization", null);
-        $check = $helpers->authCheck($hash);
-
-        var_dump($check);
-        die();
-
-        /*$em = $this->getDoctrine()->getManager();
-        $users = $em->getRepository("BackendBundle:User")->findAll();*/
-     
-
-        return $helpers->json($users);
-    }
 
 
 }

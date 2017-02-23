@@ -1,0 +1,4 @@
+contacto_list:
+    path: /list
+    defaults: { _controller: "AppBundle:Contacto:list" }
+    methods: GET

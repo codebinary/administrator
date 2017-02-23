@@ -1,0 +1,4 @@
+testdrive_list:
+    path: /list
+    defaults: { _controller: "AppBundle:TestDrive:list"}
+    methods: GET

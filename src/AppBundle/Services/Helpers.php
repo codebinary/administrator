@@ -51,4 +51,15 @@ class Helpers {
 
     }
 
+    //Método que respondera json
+    public function respuesta($status, $codigo, $msg){
+        $data = array(
+            "status" => $status,
+            "code" => $codigo,
+            "msg" => $msg
+        );
+
+        return $this->json($data);
+    }
+
 }

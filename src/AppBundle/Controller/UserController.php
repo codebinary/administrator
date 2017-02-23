@@ -15,10 +15,6 @@ use BackendBundle\Entity\User;
 
 class UserController extends Controller{
 
-	/**
-     * @Route("/user/new", name="user")
-     * @Method({"POST"})
-     */
 	public function newAction(Request $request){
 
 		//Cargamos el servicio de helpers
@@ -81,29 +77,14 @@ class UserController extends Controller{
 					$em->persist($user);
 					$em->flush();
 
-					$data["status"] = 'success';
-					$data["code"] = 200;
-					$data["msg"]	= 'New User created!!';
+					return $helpers->respuesta("success", 200, "New user created!!!");
 				}else{
-					$data = array(
-						"status" 	=> "error",
-						"code"		=>	400,
-						"msg"		=> "User not created, duplicated!!"
-					);
+					return $helpers->respuesta("failed", 400, "Duplicated user!!!");
 				}
-
 			}
-
 		}
-
-		return $helpers->json($data);
-
 	}
 
-	/**
-     * @Route("/user/edit", name="user")
-     * @Method({"POST"})
-     */
 	public function editAction(Request $request){
 
 		//Cargamos el servicio de helpers
@@ -185,34 +166,22 @@ class UserController extends Controller{
 						$em->persist($user); //Persistimos en la clase los datos
 						$em->flush(); //Guardamos en la base de datos
 
-						$data["status"] = 'success';
-						$data["code"] = 200;
-						$data["msg"]	= 'User updated created!!';
+						
+						return $helpers->respuesta("success", 200, "User updated created!!");
 					}else{
-						$data = array(
-							"status" 	=> "error",
-							"code"		=>	400,
-							"msg"		=> "User not updated, duplicated!!"
-						);
+						
+						return $helpers->respuesta("error", 400, "User not updated, duplicated!!");
 					}
 				}
 			}
 		}else{
-			$data = array(
-					"status" 	=> "error",
-					"code"		=> 	400,
-					"msg"		=> 	"Authorization not valid"
-				);
+			return $helpers->respuesta("error", 400, "Authorization not valid");
 		}
 
 	return $helpers->json($data);
 	}
 
 
-	/**
-     * @Route("/user/delete/{id}", name="user")
-     * @Method({"POST"})
-     */
 	public function deleteAction(Request $request, $id = null){
 
 		//Cargamos el servicio de helpers
@@ -237,38 +206,25 @@ class UserController extends Controller{
 				$em->remove($user);
 				$em->flush();
 
-				$data = array(
-					"status" => "success",
-					"code" => 200,
-					"msg" => "User deleted success!!"
-				);
+				return $helpers->respuesta("success", 200, "User deleted success!!");
 			}else{
-				$data = array(
-					"status" => "error",
-					"code" => 400,
-					"msg" => "Comment not deleted!!"
-				);
+				
+				return $helpers->respuesta("error", 400, "User no deleted!!");
 			}
 		}else{
-			$data = array(
-				"status" => "error",
-				"code" => 400,
-				"msg" => "Authentication not valid!!"
-			);
-		}
 
-		return $helpers->json($data);
+			return $helpers->respuesta("error", 400, "Authentication not valid!!");
+		}
 	}
 
-	/**
-     * @Route("/user/list", name="user")
-     * @Method({"POST"})
-     */
+
 	public function getAction(Request $request){
 
 		$helpers = $this->get("app.helpers");
 
-
+		/*$tokenHeader = $request->headers->get("authorization", null);*/
+		/*var_dump($tokenHeader);
+		exit();*/
 		$hash = $request->get("authorization", null);
 		$authCheck = $helpers->authCheck($hash);
 
@@ -294,16 +250,15 @@ class UserController extends Controller{
 				"total_pages" => ceil($total_items_count / $items_per_page),
 				"data" => $pagination
 			);
+
+			return $helpers->json($data);
 		}else{
-			$data = array(
-				"status" => "error",
-				"code" => 400,
-				"msg" => "Authorization not valid"
-			);
+			
+			return $helpers->respuesta("error", 400, "Authorization not valid");
 		}
 		
-
-		return $helpers->json($data);
 		
 	}
+
+	
 }
